@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.example.rationmanagementandnotificationsystem.ui.Map.MapFragment"
+        android:name="com.example.rationmanagementandnotificationsystem.ui.Map.TrackingFragment"
         android:label="@string/menu_geo_location"
         tools:layout="@layout/fragment_map" />
 

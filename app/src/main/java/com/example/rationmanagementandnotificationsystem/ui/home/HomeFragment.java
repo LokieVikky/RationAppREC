@@ -22,11 +22,11 @@ import com.example.rationmanagementandnotificationsystem.Home_Page;
 import com.example.rationmanagementandnotificationsystem.R;
 import com.example.rationmanagementandnotificationsystem.SharedSettings;
 import com.example.rationmanagementandnotificationsystem.ui.About.AboutUsFragment;
+import com.example.rationmanagementandnotificationsystem.ui.Feedback.ShareFragment;
+import com.example.rationmanagementandnotificationsystem.ui.Map.TrackingFragment;
 import com.example.rationmanagementandnotificationsystem.ui.Profile.ProfileFragment;
 import com.example.rationmanagementandnotificationsystem.ui.Stocks.ToolsFragment;
-import com.example.rationmanagementandnotificationsystem.ui.Feedback.ShareFragment;
 import com.example.rationmanagementandnotificationsystem.ui.Todays_activity.GalleryFragment;
-import com.example.rationmanagementandnotificationsystem.ui.Map.MapFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,14 +35,14 @@ import com.google.firebase.database.ValueEventListener;
 
 public class HomeFragment extends Fragment {
 
-    DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference();
-    CardView profile,tdy_activity,geolocation,notification,feedback;
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    CardView profile, tdy_activity, geolocation, notification, feedback;
     ToggleButton simpleToggleButton;
     FragmentTransaction ft;
     //Toolbar tb;
     Home_Page hp;
-    LinearLayout cusomer,shop_keeper;
-    TextView cus_open,about_us;
+    LinearLayout cusomer, shop_keeper;
+    TextView cus_open, about_us;
     ImageView check;
 
     public View onCreateView(@NonNull final LayoutInflater inflater,
@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
 
         //tb=root.findViewById(R.id.toolbar);
 
-        ft=getFragmentManager().beginTransaction();
+        ft = getFragmentManager().beginTransaction();
 
         profile = root.findViewById(R.id.cardview_profile);
         tdy_activity = root.findViewById(R.id.cardview_today_activity);
@@ -62,29 +62,29 @@ public class HomeFragment extends Fragment {
         simpleToggleButton = root.findViewById(R.id.simpleToggleButton); // initiate a toggle button
         //Boolean ToggleButtonState = simpleToggleButton.isChecked();
 
-        cusomer=root.findViewById(R.id.li_customer);
-        cus_open=root.findViewById(R.id.cus_open);
-        about_us=root.findViewById(R.id.home_about_us);
-        check=root.findViewById(R.id.check);
+        cusomer = root.findViewById(R.id.li_customer);
+        cus_open = root.findViewById(R.id.cus_open);
+        about_us = root.findViewById(R.id.home_about_us);
+        check = root.findViewById(R.id.check);
 
 
-        shop_keeper=root.findViewById(R.id.li_shop_keeper);
+        shop_keeper = root.findViewById(R.id.li_shop_keeper);
 
-        String user_type= SharedSettings.readSharedSetting(getContext(),"category","Customer");
-        if(user_type.equals("Shop_keeper_profile")){
+        String user_type = SharedSettings.readSharedSetting(getContext(), "category", "Customer");
+        if (user_type.equals("Shop_keeper_profile")) {
             cusomer.setVisibility(View.INVISIBLE);
 
-        }else {
+        } else {
             shop_keeper.setVisibility(View.INVISIBLE);
             databaseReference.child("Store_status").child("open").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String temp=dataSnapshot.getValue(String.class);
-                    if(temp.equals("YES")){
+                    String temp = dataSnapshot.getValue(String.class);
+                    if (temp.equals("YES")) {
                         check.setColorFilter(Color.GREEN);
                         cus_open.setText("Shop is Opened");
                         cus_open.setTextColor(Color.DKGRAY);
-                    }else {
+                    } else {
                         check.setColorFilter(Color.GRAY);
                         cus_open.setText("Shop is Closed");
                         cus_open.setTextColor(Color.GRAY);
@@ -101,8 +101,8 @@ public class HomeFragment extends Fragment {
         simpleToggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String store_status= (String) simpleToggleButton.getText();
-                Log.i("toggle",store_status);
+                String store_status = (String) simpleToggleButton.getText();
+                Log.i("toggle", store_status);
 
                 databaseReference.child("Store_status").child("open").setValue(store_status);
             }
@@ -131,7 +131,7 @@ public class HomeFragment extends Fragment {
         geolocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MapFragment newfragment = new MapFragment();
+                TrackingFragment newfragment = new TrackingFragment();
                 swapFragment(newfragment);
             }
         });
@@ -161,7 +161,7 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    private void swapFragment(Fragment fragment){
+    private void swapFragment(Fragment fragment) {
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, fragment);
@@ -172,6 +172,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((Home_Page)this.getActivity()).getSupportActionBar().setTitle("Home");
+        ((Home_Page) this.getActivity()).getSupportActionBar().setTitle("Home");
     }
 }

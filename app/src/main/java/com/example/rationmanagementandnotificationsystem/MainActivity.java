@@ -1,5 +1,6 @@
 package com.example.rationmanagementandnotificationsystem;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -58,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     SharedPreferences.Editor editor;
     String collection="";
     static boolean log_status=false;
+    String[] permissions = {android.Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+
 
     //-------------------------------------------------------------onCreate Method------------------------------------------------------------//
     @Override
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        requestPermissions(permissions,123);
           //sharedPreferences.getBoolean("login_status",false
             //intent = new Intent(MainActivity.this, Home_Page.class);
             //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -100,12 +103,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                username=et_username.getText().toString();
+
+                dummyLogin();
+
+               /* username=et_username.getText().toString();
                 password=et_password.getText().toString();
                 if(validateInputs()) {
                     displayLoader();
-                    login();
-                }
+
+                }*/
             }
         });
     }
@@ -291,6 +297,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // Access the RequestQueue through your singleton class.
         MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
     }*/
+
+    public void dummyLogin(){
+        SharedSettings.saveSharedSetting(MainActivity.this, "user_name", "User name");
+        SharedSettings.saveSharedSetting(MainActivity.this, "ID", "User type");
+        SharedSettings.saveSharedSetting(MainActivity.this,"user_type","type");
+        SharedSettings.saveSharedSetting(MainActivity.this,"user_phone_no","9898989898");
+        SharedSettings.saveSharedSetting(MainActivity.this,"user_add","MGR Nagar, Chennai");
+        SharedSettings.saveSharedSetting(MainActivity.this,"user_pic","https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png");
+        intent = new Intent(MainActivity.this, Home_Page.class);
+        intent.putExtra("cat_selected", cat_selected);
+        startActivity(intent);
+        finish();
+    }
+
     public void login(){
         docref = db1.collection(collection).document(username);
         Log.i("tag","login_function");

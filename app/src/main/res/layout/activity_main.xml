@@ -61,19 +61,18 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
+        android:layout_margin="10dp"
         app:boxStrokeColor="@color/colorPrimaryDark">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtText_UserID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/user_id"
-            android:fontFamily="sans-serif-condensed-light"
-            android:inputType="textEmailAddress"
-            android:layout_marginLeft="20dp"
             android:layout_marginTop="16dp"
-            android:textSize="22dp"/>
+            android:fontFamily="sans-serif-condensed-light"
+            android:hint="@string/user_id"
+            android:inputType="textEmailAddress"
+            android:textSize="22dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,8 +103,8 @@
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
+        android:layout_margin="10dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
         app:boxStrokeColor="@color/colorPrimaryDark">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -115,7 +114,6 @@
             android:hint="Password"
             android:fontFamily="sans-serif-condensed-light"
             android:inputType="textEmailAddress"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
             android:password="true"
             android:textSize="22dp"/>
